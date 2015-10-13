@@ -20,12 +20,8 @@ def setup():
 
     #get screen size
     try:
-        from win32api import GetSystemMetrics
-
-        print "Width =", GetSystemMetrics(0)
-        print "Height =", GetSystemMetrics(1)
-        SIZE_X = int(GetSystemMetrics(0))
-        SIZE_Y = int(GetSystemMetrics(1))
+        SIZE_X = int(str(pygame.display.Info()).split(',')[-2:][0].strip()[-4:])
+        SIZE_Y = int(str(pygame.display.Info()).split(',')[-2:][1].strip()[:-2][-4:])
     except Exception as e:
         screen = os.popen("xrandr -q -d :0").readlines()[0]
         SIZE_X = int(screen.split(',')[1].split()[1])
