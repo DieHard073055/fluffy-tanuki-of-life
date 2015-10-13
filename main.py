@@ -19,9 +19,18 @@ def setup():
     global BOARD_X
 
     #get screen size
-    screen = os.popen("xrandr -q -d :0").readlines()[0]
-    SIZE_X = int(screen.split(',')[1].split()[1])
-    SIZE_Y = int(screen.split(',')[1].split()[3])
+    try:
+        from win32api import GetSystemMetrics
+
+        print "Width =", GetSystemMetrics(0)
+        print "Height =", GetSystemMetrics(1)
+        SIZE_X = int(GetSystemMetrics(0))
+        SIZE_Y = int(GetSystemMetrics(1))
+    except Exception as e:
+        screen = os.popen("xrandr -q -d :0").readlines()[0]
+        SIZE_X = int(screen.split(',')[1].split()[1])
+        SIZE_Y = int(screen.split(',')[1].split()[3])
+
 
     BOARD_X = SIZE_X
     BOARD_Y = SIZE_Y - (SIZE_Y/8)
@@ -279,13 +288,13 @@ def loop(grid):
             elif event.type == MOUSEMOTION:
                 if draw_mouse:
                     m_x, m_y = event.pos
-                    if(m_x < BOARD_X and m_y < BOARD_Y-1):
+                    if(m_x < BOARD_X-1 and m_y < BOARD_Y-5):
                         mx = m_x / 10
                         my = m_y / 10
                         grid[my][mx] = 1
             elif event.type == MOUSEBUTTONUP:
                 m_x, m_y = event.pos
-                if(m_x < BOARD_X and m_y < BOARD_Y-1):
+                if(m_x < BOARD_X-1 and m_y < BOARD_Y-5):
                     mx = m_x / 10
                     my = m_y / 10
                     grid[my][mx] = not grid[my][mx]
