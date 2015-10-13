@@ -1,26 +1,58 @@
-import pygame, sys
+import pygame, sys, os
 from pygame.locals import *
 import random
 import numpy
 
-SIZE_X = 1080
-SIZE_Y = 720
+SIZE_X = 0
+SIZE_Y = 0
+
+BOARD_X = 0
+BOARD_Y = 0
 def setup():
     global windowSurfaceObject
     global fpsClock
+
+    global SIZE_X
+    global SIZE_Y
+
+    global BOARD_Y
+    global BOARD_X
+
+    #get screen size
+    screen = os.popen("xrandr -q -d :0").readlines()[0]
+    SIZE_X = int(screen.split(',')[1].split()[1])
+    SIZE_Y = int(screen.split(',')[1].split()[3])
+
+    BOARD_X = SIZE_X
+    BOARD_Y = SIZE_Y - (SIZE_Y/8)
+
     #Setup Pygame
     pygame.init()
     fpsClock = pygame.time.Clock()
     #Setup window
-    windowSurfaceObject = pygame.display.set_mode((SIZE_X, SIZE_Y+200))
+    windowSurfaceObject = pygame.display.set_mode((SIZE_X, SIZE_Y))
     pygame.display.set_caption('Game Of Life')
 
-    #Setup Colors
-    red = pygame.Color(255, 0, 0)
-    green = pygame.Color(0, 255, 0)
-    blue = pygame.Color(0, 0, 255)
-    black = pygame.Color(0, 0, 0)
 
+    windowSurfaceObject = pygame.display.get_surface()
+    tmp = windowSurfaceObject.convert()
+
+    caption = pygame.display.get_caption()
+    cursor = pygame.mouse.get_cursor()
+    SIZE_X, SIZE_Y = windowSurfaceObject.get_width(), windowSurfaceObject.get_height()
+    flags = windowSurfaceObject.get_flags()
+    bits = windowSurfaceObject.get_bitsize()
+
+    pygame.display.quit()
+    pygame.display.init()
+
+    windowSurfaceObject = pygame.display.set_mode((SIZE_X, SIZE_Y), flags^FULLSCREEN, bits)
+    windowSurfaceObject.blit(tmp,(0,0))
+    pygame.display.set_caption(*caption)
+
+    pygame.key.set_mods(0)
+
+    pygame.mouse.set_cursor(*cursor)
     #Setup game array
 
     grid = generate_grid()
@@ -29,7 +61,7 @@ def setup():
 
 def generate_grid():
     #Random initial state 1
-    grid = numpy.zeros((SIZE_Y/10, SIZE_X/10))
+    grid = numpy.zeros((BOARD_Y/10, BOARD_X/10))
 
     # for x in range(108-1):
     #    for y in range(72-1):
@@ -66,23 +98,23 @@ def count_surrounding(grid, x, y):
             if(grid[y-1][x-1]):
                 count=count+1
     #check right
-    if(x < SIZE_X/10):
+    if(x < BOARD_X/10):
             if(grid[y][x+1]):
                 count=count+1
     #check top right
-    if(y > 0 and x < SIZE_X/10):
+    if(y > 0 and x < BOARD_X/10):
             if(grid[y-1][x+1]):
                 count=count+1
     #check down
-    if(y < SIZE_Y/10):
+    if(y < BOARD_Y/10):
             if(grid[y+1][x]):
                 count=count+1
     #check down right
-    if(y < SIZE_Y/10 and x < SIZE_X/10):
+    if(y < BOARD_Y/10 and x < BOARD_X/10):
             if(grid[y+1][x+1]):
                 count=count+1
     #check down left
-    if(y < SIZE_Y/10 and x > 0):
+    if(y < BOARD_Y/10 and x > 0):
             if(grid[y+1][x-1]):
                 count=count+1
 
@@ -93,8 +125,8 @@ def count_surrounding(grid, x, y):
 def run_process(grid):
     global gamemode
     if gamemode == 0:
-        for x in range((SIZE_X/10)-1):
-            for y in range((SIZE_Y/10)-1):
+        for x in range((BOARD_X/10)-1):
+            for y in range((BOARD_Y/10)-1):
                 c = count_surrounding(grid, x, y)
 
                 #print "Count " + str(c)
@@ -110,26 +142,26 @@ def run_process(grid):
                     if c == 3:
                         grid[y][x] = 1
     elif gamemode == 1:
-        for x in range((SIZE_X/10)-1):
-            for y in range((SIZE_Y/10)-1):
+        for x in range((BOARD_X/10)-1):
+            for y in range((BOARD_Y/10)-1):
                 c = count_surrounding(grid, x, y)
 
                 #print "Count " + str(c)
                 if grid[y][x]:
                     #Check for lonliness
-                    if c == 0 or c==1:
+                    if c < 2:
                         grid[y][x] = 0
                     #Check for over crowding
-                    if c > 3:
+                    if c >= 3:
                         grid[y][x] = 0
                 else:
                     #Spawn if there are near by pixels
-                    if c == 3:
+                    if c ==3:
                         grid[y][x] = 1
     elif gamemode == 2:
-        new_grid = numpy.zeros((SIZE_Y/10, SIZE_X/10))
-        for x in range((SIZE_X/10)-1):
-            for y in range((SIZE_Y/10)-1):
+        new_grid = numpy.zeros((BOARD_Y/10, BOARD_X/10))
+        for x in range((BOARD_X/10)-1):
+            for y in range((BOARD_Y/10)-1):
                 c = count_surrounding(grid, x, y)
 
                 #print "Count " + str(c)
@@ -153,8 +185,8 @@ def run_process(grid):
 
         grid = new_grid
     elif gamemode == 3:
-        for x in range((SIZE_X/10)-1):
-            for y in range((SIZE_Y/10)-1):
+        for x in range((BOARD_X/10)-1):
+            for y in range((BOARD_Y/10)-1):
                 c = count_surrounding(grid, x, y)
 
                 #print "Count " + str(c)
@@ -209,8 +241,8 @@ def loop(grid):
         windowSurfaceObject.fill(pygame.Color(0, 0, 0))
 
         #Draw the pixels
-        for x in range((SIZE_X/10)-1):
-            for y in range((SIZE_Y/10)-1):
+        for x in range((BOARD_X/10)-1):
+            for y in range((BOARD_Y/10)-1):
                 if grid[y][x]:
                     r, g, b = get_color(colortheme, x, y)
                     pygame.draw.rect(windowSurfaceObject, pygame.Color(r, g, b), (x*10, y*10, 10, 10))
@@ -229,7 +261,7 @@ def loop(grid):
         for s in status:
             text_surface_obj = st_font.render(s, False, pygame.Color(120, 120, 120))
             text_obj = text_surface_obj.get_rect()
-            text_obj.topleft=(start_x, (720 + start_y))
+            text_obj.topleft=(start_x, ((BOARD_Y) + start_y))
             start_y = start_y + 20
             windowSurfaceObject.blit(text_surface_obj, text_obj)
 
@@ -247,13 +279,13 @@ def loop(grid):
             elif event.type == MOUSEMOTION:
                 if draw_mouse:
                     m_x, m_y = event.pos
-                    if(m_x < 1080 and m_y < 720):
+                    if(m_x < BOARD_X and m_y < BOARD_Y-1):
                         mx = m_x / 10
                         my = m_y / 10
                         grid[my][mx] = 1
             elif event.type == MOUSEBUTTONUP:
                 m_x, m_y = event.pos
-                if(m_x < 1080 and m_y < 720):
+                if(m_x < BOARD_X and m_y < BOARD_Y-1):
                     mx = m_x / 10
                     my = m_y / 10
                     grid[my][mx] = not grid[my][mx]
@@ -268,6 +300,8 @@ def loop(grid):
                     gamemode = gamemode + 1
                     if gamemode == 4:
                         gamemode = 0
+                if event.key == K_q:
+                    sys.exit()
                 if event.key == K_d:
                     colortheme = colortheme + 1
                     if colortheme == 4:
