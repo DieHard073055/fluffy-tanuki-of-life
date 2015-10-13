@@ -18,6 +18,8 @@ def setup():
     global BOARD_Y
     global BOARD_X
 
+    #Setup Pygame
+    pygame.init()
     #get screen size
     try:
         SIZE_X = int(str(pygame.display.Info()).split(',')[-2:][0].strip()[-4:])
@@ -31,8 +33,7 @@ def setup():
     BOARD_X = SIZE_X
     BOARD_Y = SIZE_Y - (SIZE_Y/8)
 
-    #Setup Pygame
-    pygame.init()
+
     fpsClock = pygame.time.Clock()
     #Setup window
     windowSurfaceObject = pygame.display.set_mode((SIZE_X, SIZE_Y))
@@ -261,7 +262,7 @@ def loop(grid):
         status.append("Game Mode : " + str(gamemode))
         status.append("Colour Theme : " + str(colortheme))
 
-        start_y = 40
+        start_y = 20
         start_x = 10
         for s in status:
             text_surface_obj = st_font.render(s, False, pygame.Color(120, 120, 120))
