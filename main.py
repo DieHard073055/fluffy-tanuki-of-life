@@ -70,7 +70,49 @@ def setup():
 
     return grid
 
-def generate_grid():
+def reload_screen(grid):
+    global windowSurfaceObject
+    global fpsClock
+
+    global SIZE_X
+    global SIZE_Y
+
+    global BOARD_Y
+    global BOARD_X
+
+    global PIXEL_SIZE
+
+
+
+    pygame.display.quit()
+    pygame.display.init()
+
+    BOARD_X = SIZE_X / PIXEL_SIZE
+    BOARD_Y = (SIZE_Y - (SIZE_Y/8)) / PIXEL_SIZE
+
+    #Setup window
+
+    cursor = pygame.mouse.get_cursor()
+
+    windowSurfaceObject = pygame.display.set_mode((SIZE_X, SIZE_Y))
+    windowSurfaceObject = pygame.display.get_surface()
+    tmp = windowSurfaceObject.convert()
+
+    flags = windowSurfaceObject.get_flags()
+    bits = windowSurfaceObject.get_bitsize()
+
+
+    windowSurfaceObject.blit(tmp,(0,0))
+    pygame.display.set_caption('Game Of Life')
+
+    pygame.key.set_mods(0)
+
+    pygame.mouse.set_cursor(*cursor)
+    #Setup game array
+    grid = generate_grid(grid)
+
+    return grid
+def generate_grid(old_grid=None):
     #Random initial state 1
     grid = numpy.zeros((BOARD_Y, BOARD_X))
     # for x in range(108-1):
@@ -91,6 +133,14 @@ def generate_grid():
 
     # for t in range(1000):
     #     grid[random.randint(0, 71)][random.randint(0, 107)] = 1
+    if not old_grid == None:
+        for x in range((BOARD_X)-1):
+            for y in range((BOARD_Y)-1):
+                if(x < old_grid.shape[1] and y < old_grid.shape[0]):
+                    if(old_grid[y][x]):
+                        grid[y][x] = 1
+
+
     return grid
 def deploy_creature(grid, mouse):
     #l_creatures = [[1,5],[2,5],[1,6],[2,6],[11,5],[11,6],[11,7],[12,4],[12,8],[13,3],[13,9],[14,3],[14,9],[15,6],[16,4],[16,8],[17,5],[17,7],[17,6],[18,6],[21,3],[21,4],[21,5],[22,3],[22,4],[22,5],[23,2],[23,6],[25,2],[25,6],[25,7],[25,1],[35,3],[35,4],[36,3],[36,4]]
@@ -315,14 +365,14 @@ def get_color(colortheme, x, y):
 def save_grid(grid):
     from datetime import datetime
     import time
-    filename = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    filename = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H-%M-%S')
 
     s =""
 
     for x in range((BOARD_X)-1):
         for y in range((BOARD_Y)-1):
             if grid[y][x]:
-                s = s + "[" + str(x) + ", " + str(y) + "],\n"
+                s = s + "[" + str(x) + ", " + str(y) + "],"
 
     data_file = open(filename, "w")
     data_file.write(s)
@@ -500,6 +550,12 @@ def loop(grid):
                         gamemode = 0
                 if event.key == K_s and searching==0:
                     save_grid(grid)
+                if event.key == K_EQUALS:
+                    PIXEL_SIZE = PIXEL_SIZE + 1
+                    grid = reload_screen(grid)
+                if event.key == K_MINUS:
+                    PIXEL_SIZE = PIXEL_SIZE - 1
+                    grid = reload_screen(grid)
                 if event.key == K_q:
                     sys.exit()
                 if event.key == K_d:
