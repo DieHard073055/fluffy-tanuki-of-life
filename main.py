@@ -8,6 +8,8 @@ SIZE_Y = 0
 
 BOARD_X = 0
 BOARD_Y = 0
+
+PIXEL_SIZE = 25
 def setup():
     global windowSurfaceObject
     global fpsClock
@@ -17,6 +19,8 @@ def setup():
 
     global BOARD_Y
     global BOARD_X
+
+    global PIXEL_SIZE
 
     #Setup Pygame
     pygame.init()
@@ -31,8 +35,8 @@ def setup():
 
     SIZE_X = 1080
     SIZE_Y = 900
-    BOARD_X = SIZE_X / 5
-    BOARD_Y = (SIZE_Y - (SIZE_Y/8)) / 5
+    BOARD_X = SIZE_X / PIXEL_SIZE
+    BOARD_Y = (SIZE_Y - (SIZE_Y/8)) / PIXEL_SIZE
 
 
     fpsClock = pygame.time.Clock()
@@ -89,7 +93,7 @@ def generate_grid():
     #     grid[random.randint(0, 71)][random.randint(0, 107)] = 1
     return grid
 def deploy_creature(grid, mouse):
-    l_creatures = [[1,5],[2,5],[1,6],[2,6],[11,5],[11,6],[11,7],[12,4],[12,8],[13,3],[13,9],[14,3],[14,9],[15,6],[16,4],[16,8],[17,5],[17,7],[17,6],[18,6],[21,3],[21,4],[21,5],[22,3],[22,4],[22,5],[23,2],[23,6],[25,2],[25,6],[25,7],[25,1],[35,3],[35,4],[36,3],[36,4]]
+    #l_creatures = [[1,5],[2,5],[1,6],[2,6],[11,5],[11,6],[11,7],[12,4],[12,8],[13,3],[13,9],[14,3],[14,9],[15,6],[16,4],[16,8],[17,5],[17,7],[17,6],[18,6],[21,3],[21,4],[21,5],[22,3],[22,4],[22,5],[23,2],[23,6],[25,2],[25,6],[25,7],[25,1],[35,3],[35,4],[36,3],[36,4]]
     for coordinates in l_creatures:
         if SIZE_X > (mouse[0]+coordinates[0]) and SIZE_Y > (mouse[1]+coordinates[1]):
             grid[mouse[1]+coordinates[1]][mouse[0]+coordinates[0]] = 1
@@ -313,12 +317,12 @@ def save_grid(grid):
     import time
     filename = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
 
-    s = "[" + str(BOARD_X) + ", " + str(BOARD_Y) + "]\n"
+    s =""
 
     for x in range((BOARD_X)-1):
         for y in range((BOARD_Y)-1):
             if grid[y][x]:
-                s = s + "(" + str(x) + ", " + str(y) + ")\n"
+                s = s + "[" + str(x) + ", " + str(y) + "],\n"
 
     data_file = open(filename, "w")
     data_file.write(s)
@@ -363,6 +367,7 @@ def loop(grid):
     global fpsClock
     global gamemode
     global colortheme
+    global PIXEL_SIZE
 
     mouse_pos=[]
 
@@ -393,7 +398,7 @@ def loop(grid):
             for y in range((BOARD_Y)-1):
                 if grid[y][x]:
                     r, g, b = get_color(colortheme, x, y)
-                    pygame.draw.rect(windowSurfaceObject, pygame.Color(r, g, b), (x*5, y*5, 5, 5))
+                    pygame.draw.rect(windowSurfaceObject, pygame.Color(r, g, b), (x*PIXEL_SIZE , y*PIXEL_SIZE , PIXEL_SIZE , PIXEL_SIZE ))
                     #pixls[x][y] = pygame.Color(r, g, b)
 
         if searching > 1:
@@ -401,16 +406,16 @@ def loop(grid):
 
             for seen in s_unvisited:
                 x, y = seen
-                pygame.draw.rect(windowSurfaceObject, pygame.Color(0,102,255), (x*5, y*5, 5, 5))
+                pygame.draw.rect(windowSurfaceObject, pygame.Color(0,102,255), (x*PIXEL_SIZE , y*PIXEL_SIZE , PIXEL_SIZE , PIXEL_SIZE ))
 
             for walked in s_visited:
                 x, y = walked
-                pygame.draw.rect(windowSurfaceObject, pygame.Color(255,102,0), (x*5, y*5, 5, 5))
+                pygame.draw.rect(windowSurfaceObject, pygame.Color(255,102,0), (x*PIXEL_SIZE , y*PIXEL_SIZE , PIXEL_SIZE , PIXEL_SIZE ))
 
         if not sstart == []:
-            pygame.draw.rect(windowSurfaceObject, pygame.Color(255,255,50), (sstart[0]*5, sstart[1]*5, 5, 5))
+            pygame.draw.rect(windowSurfaceObject, pygame.Color(255,255,50), (sstart[0]*PIXEL_SIZE , sstart[1]*PIXEL_SIZE , PIXEL_SIZE , PIXEL_SIZE ))
         if not sgoal == []:
-            pygame.draw.rect(windowSurfaceObject, pygame.Color(100,255,250), (sgoal[0]*5, sgoal[1]*5, 5, 5))
+            pygame.draw.rect(windowSurfaceObject, pygame.Color(100,255,250), (sgoal[0]*PIXEL_SIZE , sgoal[1]*PIXEL_SIZE , PIXEL_SIZE , PIXEL_SIZE ))
         #del pixls
         #Write out the game data
         #720 to 920
@@ -426,20 +431,20 @@ def loop(grid):
         for s in status:
             text_surface_obj = st_font.render(s, False, pygame.Color(120, 120, 120))
             text_obj = text_surface_obj.get_rect()
-            text_obj.topleft=(start_x, ((BOARD_Y * 5) + start_y))
+            text_obj.topleft=(start_x, ((BOARD_Y * PIXEL_SIZE ) + start_y))
             start_y = start_y + 20
             windowSurfaceObject.blit(text_surface_obj, text_obj)
 
         if found == True:
             text_surface_obj = st_font.render("Solution Found", False, pygame.Color(0, 153, 0))
             text_obj = text_surface_obj.get_rect()
-            text_obj.topleft=(600, ((BOARD_Y * 5) + start_y))
+            text_obj.topleft=(600, ((BOARD_Y * PIXEL_SIZE ) + start_y))
             windowSurfaceObject.blit(text_surface_obj, text_obj)
 
         if searching == 2:
             text_surface_obj = st_font.render("Searching..", False, pygame.Color(102, 0, 102))
             text_obj = text_surface_obj.get_rect()
-            text_obj.topleft=(600, ((BOARD_Y * 5) + start_y))
+            text_obj.topleft=(600, ((BOARD_Y * PIXEL_SIZE ) + start_y))
             windowSurfaceObject.blit(text_surface_obj, text_obj)
 
 
@@ -466,11 +471,11 @@ def loop(grid):
             elif event.type == MOUSEMOTION:
                 m_x, m_y = event.pos
                 mouse_pos = event.pos
-                mouse_pos = [mouse_pos[0]/5, mouse_pos[1]/5]
+                mouse_pos = [mouse_pos[0]/PIXEL_SIZE , mouse_pos[1]/PIXEL_SIZE ]
                 if draw_mouse and searching==0:
-                    if(m_x < SIZE_X-5 and m_y < SIZE_Y- (SIZE_Y/8)):
-                        mx = m_x / 5
-                        my = m_y / 5
+                    if(m_x < SIZE_X-PIXEL_SIZE  and m_y < (SIZE_Y- (SIZE_Y/8))-PIXEL_SIZE):
+                        mx = m_x / PIXEL_SIZE
+                        my = m_y / PIXEL_SIZE
                         grid[my][mx] = 1
             elif event.type == MOUSEBUTTONUP:
                 m_x, m_y = event.pos
@@ -478,9 +483,9 @@ def loop(grid):
                     #get mouse coordinates
                     sgoal = mouse_pos
                     searching = 2
-                elif(m_x < SIZE_X-5 and m_y < SIZE_Y- (SIZE_Y/8)):
-                    mx = m_x / 5
-                    my = m_y / 5
+                elif(m_x < SIZE_X-PIXEL_SIZE  and m_y < (SIZE_Y- (SIZE_Y/8))-PIXEL_SIZE):
+                    mx = m_x / PIXEL_SIZE
+                    my = m_y / PIXEL_SIZE
                     grid[my][mx] = not grid[my][mx]
             elif event.type == KEYDOWN:
                 if event.key == K_a and searching==0:
