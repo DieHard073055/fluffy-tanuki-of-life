@@ -15,12 +15,13 @@ Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Gam
 | D    | Changes color **theme** |
 | Z    | Switches **Game Mode** |
 | C    | Toggles **Draw Mode**  |
-| E    | Adds _"Gosper Glider Gun"_ ** to where the mouse is  |
+| E    | Adds "creatures" to where the mouse is  |
+| W    | Swaps the creature that gets deployed  |
 | F    | Place a start point. End the point by a mouse click |
 | +    | Increase pixel size |
 | -    | Decrease pixel size |
 
-_\* Saves art: a file is created saved with the coordinates. Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
+_\* Saves the state of the whole grid: a file is created saved with the coordinates._
 
 _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
 
@@ -29,8 +30,8 @@ _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refe
 |:-----:|:--------------|
 | F7    | Decrease height of screen |
 | F8    | Increase height of screen |
-| F9    | Increase width of screen |
-| F10    | Decrease width of screen |
+| F9    | Decrease width of screen |
+| F10    | Increase width of screen |
 
 
 ##Game Modes
