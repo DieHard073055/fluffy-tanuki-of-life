@@ -1,5 +1,5 @@
 # fluffy-tanuki-of-life
-Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).  My repo contains experimentations of different set of rules.
+Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).  Currently doing experimentations of different set of rules.
 
 ##Requirements
 1. Python 2.7
