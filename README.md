@@ -1,24 +1,42 @@
 # fluffy-tanuki-of-life
-Experimenting with the game of life.
+Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).  My repo contains experimentations of different set of rules.
 
-Currently i am testing out different rules
+##Hot Keys
 
-#The input the program supports
-****press A to clear screen
-*press D to change color theme
-*press X to start and stop the script
-*press Z to change the rules that are in play
-*press C to toggle the draw mode
-	--the draw mode turns all the pixels of where ever the cursor is to turn on
-*press E to add Gosper glider gun to where the mouse cursor is
+| Keys | Description  |
+|:----:|:-------------|
+| A    | Clears Screen |
+| S    | Saves your "art" * |
+| D    | Changes color **theme** |
+| Z    | Switches **Game Mode** |
+| C    | Toggles **Draw Mode**  |
+| E    | Adds _"Gosper Glider Gun"_ ** to where the mouse is  |
+| F    | Place a start point. End the point by a mouse click |
+| +    | Increase pixel size |
+| -    | Decrease pixel size |
 
-Game mode 3 is for The original Game
-Ill try to document the stuff more
+_\* Saves art: a file is created saved with the coordinates. Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
 
-Also after generating a maze using game mode 0
-*Press F to place a start point 
-*Click anywhere on the board to place the end point
-*After you placed the end point. Itll start doing the DFS to the end point
+_\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
+
+##Game Modes
+
+| Mode | Game |
+|:----:|:----------- |
+| 0    | The original |
+| 1    | Death  |
+| 2    | Symmetry -  |
+| 3    | Maze |
+| 4    | 90 Degrees |
+| 5    | Square |
+| 6    | Symmetrical Life|
+
+Experiment the game. ;)
+
+##Screen Sizes
+Press F10.  // To change the game's screen size to your own custom liking, simply edit the source file "screen.py" at line 66.
 
 
-by Eshan Shafeeq
+
+
+###### by Eshan Shafeeq
