@@ -1,6 +1,11 @@
 # fluffy-tanuki-of-life
 Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).  My repo contains experimentations of different set of rules.
 
+##Requirements
+1. Python 2.7
+2. (Import) Pygame
+3. (Import) Numpy
+
 ##Hot Keys
 
 | Keys | Description  |
@@ -15,7 +20,11 @@ Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Gam
 | +    | Increase pixel size |
 | -    | Decrease pixel size |
 
-###Change Screen Size
+_\* Saves art: a file is created saved with the coordinates. Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
+
+_\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
+
+###Change Screen Sizes
 | Key   | Description |
 |:-----:|:--------------|
 | F7    | Decrease height of screen |
@@ -23,9 +32,6 @@ Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Gam
 | F9    | Increase width of screen |
 | F10    | Decrease width of screen |
 
-_\* Saves art: a file is created saved with the coordinates. Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
-
-_\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
 
 ##Game Modes
 
