@@ -15,6 +15,14 @@ Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Gam
 | +    | Increase pixel size |
 | -    | Decrease pixel size |
 
+###Change Screen Size
+| Key   | Description |
+|:-----:|:--------------|
+| F7    | Decrease height of screen |
+| F8    | Increase height of screen |
+| F9    | Increase width of screen |
+| F10    | Decrease width of screen |
+
 _\* Saves art: a file is created saved with the coordinates. Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
 
 _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refer Wikipedia's "[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life)"._
@@ -25,7 +33,7 @@ _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refe
 |:----:|:----------- |
 | 0    | The original |
 | 1    | Death  |
-| 2    | Symmetry -  |
+| 2    | Symmetry  |
 | 3    | Maze |
 | 4    | 90 Degrees |
 | 5    | Square |
@@ -33,8 +41,6 @@ _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refe
 
 Experiment the game. ;)
 
-##Screen Sizes
-Press F10.  // To change the game's screen size to your own custom liking, simply edit the source file "screen.py" at line 66.
 
 
 

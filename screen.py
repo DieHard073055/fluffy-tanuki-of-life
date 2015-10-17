@@ -63,7 +63,7 @@ class screen():
         _x_distance = 20
 
 
-        st_font = self.pygame.font.Font('freesansbold.ttf', int(self.SIZE_Y * 0.02))
+        st_font = self.pygame.font.Font('freesansbold.ttf', int(self.SIZE_Y * 0.027))
 
 
         status_data = []
