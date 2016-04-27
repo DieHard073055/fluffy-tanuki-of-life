@@ -1,3 +1,16 @@
+
+#
+# @file     creatures.py
+# @author   Eshan Shafeeq
+# @version  0.5
+# @date     27 August 2015
+# @brief    This file contains the pixels for the creatures that can be
+#           deployed while running the game. If you want to save your own creature.
+#           make your creature on the game. And use the save feature to save the creature
+#           date to a file. Which will be a list of coordinates like these.
+#
+
+
 class creatures():
     """docstring for creatures"""
     def __init__(self):

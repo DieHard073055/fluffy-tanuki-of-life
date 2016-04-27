@@ -1,4 +1,17 @@
+#
+# @file     screen.py
+# @author   Eshan Shafeeq
+# @version  v0.5
+# @date     27 August 2015
+# @brief    This file contains the functionality to print all the
+#           pixels to the screen. Also prints the HUD at the bottom
+#           to indicate the game status and other stuff.
+#
+#
+
+
 from pygame.locals import *
+import random
 class screen():
     """docstring for screen"""
     def __init__(self, pygame):
@@ -48,12 +61,24 @@ class screen():
         self.pygame.key.set_mods(0)
         self.pygame.mouse.set_cursor(*cursor)
 
-    def draw_game_board(self, grid):
+    def get_colors( self, color_theme, y, x ):
+        if color_theme == 0:
+            return [ 0, 255, 0 ]
+        if color_theme == 1:
+            return [ 0, 255, 255 ]
+        if color_theme == 2:
+            return [ 255, 255, 0 ]
+        if color_theme == 3:
+            return [ random.randint(0, 255), random.randint(0, 255), random.randint(0, 255) ]
+        if color_theme == 4:
+            return [ y % 255, x % 255, y * x % 255 ]
+
+    def draw_game_board(self, grid, game_states):
         self._surface.fill(self.pygame.Color(0, 0, 0))
         for x in range((self.BOARD_X)-1):
             for y in range((self.BOARD_Y)-1):
                 if grid[y][x]:
-                    r, g, b = [0, 255, 0]
+                    r, g, b = self.get_colors( game_states['color_theme'], y, x )
                     self.pygame.draw.rect(self._surface, self.pygame.Color(r, g, b), (x*self.PIXEL_SIZE , y*self.PIXEL_SIZE , self.PIXEL_SIZE , self.PIXEL_SIZE ))
 
 

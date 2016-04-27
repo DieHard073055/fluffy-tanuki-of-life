@@ -1,3 +1,14 @@
+
+#
+# @file     main.py
+# @author   Eshan Shafeeq
+# @version  v0.5
+# @date     27 August 2015
+# @brief    This is the main module. Contains the main "game-loop". Basically
+#           Updates the screen. Gets the user input. Feed it back to the
+#           grid processor for the right change to occur in the game. Loop
+#           goes on until the user press Q or closes the window.
+
 import pygame, sys
 from pygame.locals import *
 import screen
@@ -32,7 +43,7 @@ def main():
     while(True):
 
         #Draw the grid panel
-        window.draw_game_board(grid_p.grid)
+        window.draw_game_board(grid_p.grid, game_states)
         #Draw the status panel
         window.draw_game_status_panel(game_states)
 

@@ -1,3 +1,13 @@
+#
+# @file     input_handler.py
+# @author   Eshan Shafeeq
+# @version  v0.5
+# @date     27 August 2015
+# @breif    This file contains all the functionality to handle key strokes
+#           and mouse movement. It defines all the functionality for the
+#           key presses and mouse movements.
+
+
 from pygame.locals import *
 import sys
 class input_handler():
@@ -89,7 +99,7 @@ class input_handler():
 
                 elif event.key == K_d:
                     game_states['color_theme'] = game_states['color_theme'] + 1
-                    if game_states['color_theme'] == 4:
+                    if game_states['color_theme'] == 5:
                         game_states['color_theme'] = 0
 
                 elif event.key == K_e:

@@ -1,3 +1,14 @@
+#
+# @file     grid_processor.py
+# @author   Eshan Shafeeq
+# @version  v0.5
+# @date     27 August 2015
+# @brief    This is where all the magic for the program comes from.
+#           Below on the process function, I have defined how all the
+#           different algorithms work.
+#
+
+
 import random
 import numpy
 import creatures

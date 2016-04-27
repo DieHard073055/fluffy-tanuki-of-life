@@ -1,3 +1,13 @@
+#
+# @file     search_algorithm.py
+# @author   Eshan Shafeeq
+# @version  v0.5
+# @date     27 August 2015
+# @brief    This file contains the depth first search algorithm to
+#           do a DFS after generating a random maze from the maze
+#           generation algorithm.
+
+
 class search_algorithm():
     """docstring for search_algorithm"""
     def __init__(self):

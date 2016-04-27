@@ -17,7 +17,8 @@ Experimenting with the [Game of Life](https://en.wikipedia.org/wiki/Conway's_Gam
 | C    | Toggles **Draw Mode**  |
 | E    | Adds "creatures" to where the mouse is  |
 | W    | Swaps the creature that gets deployed  |
-| F    | Place a start point. End the point by a mouse click |
+| F    | Place a start point DFS. Press again to place an end point and start DFS. Press again to stop DFS. Press again to clear the DFS path |
+| X    | Start and stop the simulation |
 | +    | Increase pixel size |
 | -    | Decrease pixel size |
 
@@ -30,8 +31,9 @@ _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refe
 |:-----:|:--------------|
 | F7    | Decrease height of screen |
 | F8    | Increase height of screen |
-| F9    | Decrease width of screen |
-| F10    | Increase width of screen |
+| F9    | Decrease width of screen  |
+| F10   | Increase width of screen  |
+| F11   | Toggles fullscreen        |
 
 
 ##Game Modes
@@ -39,7 +41,7 @@ _\*\* Gosper Glider Gun art: Winner of "prove or disprove conjecture 1970". Refe
 | Mode | Game |
 |:----:|:----------- |
 | 0    | The original |
-| 1    | Death  |
+| 1    | Ants  |
 | 2    | Symmetry  |
 | 3    | Maze |
 | 4    | 90 Degrees |
